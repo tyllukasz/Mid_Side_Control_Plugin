@@ -81,7 +81,8 @@ Mid_Side_ControlAudioProcessorEditor::Mid_Side_ControlAudioProcessorEditor (Mid_
         labelSliderSwitchS.attachToComponent(&sliderSwitch, false);
         addAndMakeVisible(labelSliderSwitchS);
 
-    setSize (400, 300);
+    setResizable(false, false);
+    setSize (350, 300);
 }
 
 Mid_Side_ControlAudioProcessorEditor::~Mid_Side_ControlAudioProcessorEditor()
