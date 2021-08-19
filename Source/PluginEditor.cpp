@@ -13,9 +13,25 @@
 Mid_Side_ControlAudioProcessorEditor::Mid_Side_ControlAudioProcessorEditor (Mid_Side_ControlAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    //MID slider definition
+    sliderMid.setSliderStyle(juce::Slider::SliderStyle::Rotary); //style
+    sliderMid.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 40, 30); //text box definition
+    sliderMid.setRange(0.0f, 1.0f, 0.1f); //adjustment range
+    sliderMid.setValue(0.5f); //initial value
+    addAndMakeVisible(sliderMid);
+
+    //MID label
+    labelSliderMid.setText("MID", juce::dontSendNotification);
+    labelSliderMid.setJustificationType(juce::Justification::centred);
+    labelSliderMid.attachToComponent(&sliderMid, false);
+    addAndMakeVisible(labelSliderMid);
+
+    //SIDE slider definition
+
+
+    //GAIN slider definition
+
+    setSize (400, 400);
 }
 
 Mid_Side_ControlAudioProcessorEditor::~Mid_Side_ControlAudioProcessorEditor()
@@ -25,16 +41,10 @@ Mid_Side_ControlAudioProcessorEditor::~Mid_Side_ControlAudioProcessorEditor()
 //==============================================================================
 void Mid_Side_ControlAudioProcessorEditor::paint (juce::Graphics& g)
 {
-    // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
-
-    g.setColour (juce::Colours::white);
-    g.setFont (15.0f);
-    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+    g.fillAll(juce::Colours::black); //background colour
 }
 
 void Mid_Side_ControlAudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
+    sliderMid.setBounds(getWidth() / 2, getHeight() / 2, 100, 100);
 }
