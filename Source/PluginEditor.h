@@ -26,11 +26,15 @@ public:
 
 private:
 
-    juce::Slider sliderMid; //slider for MID control
-    juce::Label labelSliderMid; 
+    //SLIDERS
+        juce::Slider sliderMid; //slider for MID control
+        juce::Label labelSliderMid; //label with description
 
-    juce::Slider sliderSide; //slider for SIDE control
-    juce::Slider sliderGain; //slider for GAIN control
+        juce::Slider sliderSide; //slider for SIDE control
+        juce::Label labelSliderSide; //label with description
+
+        juce::Slider sliderGain; //slider for GAIN control
+        juce::Label labelSliderGain; //label with description
 
     Mid_Side_ControlAudioProcessor& audioProcessor;
 
