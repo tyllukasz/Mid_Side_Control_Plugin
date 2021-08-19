@@ -13,6 +13,7 @@
 Mid_Side_ControlAudioProcessorEditor::Mid_Side_ControlAudioProcessorEditor (Mid_Side_ControlAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
+    //====================SLIDERS====================
     //MID slider
         //slider definition
         sliderMid.setSliderStyle(juce::Slider::SliderStyle::Rotary); //type
@@ -56,7 +57,31 @@ Mid_Side_ControlAudioProcessorEditor::Mid_Side_ControlAudioProcessorEditor (Mid_
         labelSliderGain.attachToComponent(&sliderGain, false);
         addAndMakeVisible(labelSliderGain);
 
-    setSize (400, 400);
+    //SWITCH slider
+        //slider definition
+        sliderSwitch.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal); //type
+        sliderSwitch.setTextBoxStyle(juce::Slider::NoTextBox, true, 40, 30); //text box definition
+        sliderSwitch.setRange(0.0f, 1.0f, 0.5f); //adjustment range
+        sliderSwitch.setValue(0.5f); //initial value
+        addAndMakeVisible(sliderSwitch);
+
+        //label
+        labelSliderSwitchA.setText("ALL", juce::dontSendNotification);
+        labelSliderSwitchA.setJustificationType(juce::Justification::centred);
+        labelSliderSwitchA.attachToComponent(&sliderSwitch, false);
+        addAndMakeVisible(labelSliderSwitchA);
+
+        labelSliderSwitchM.setText("MID", juce::dontSendNotification);
+        labelSliderSwitchM.setJustificationType(juce::Justification::left);
+        labelSliderSwitchM.attachToComponent(&sliderSwitch, false);
+        addAndMakeVisible(labelSliderSwitchM);
+
+        labelSliderSwitchS.setText("SIDE", juce::dontSendNotification);
+        labelSliderSwitchS.setJustificationType(juce::Justification::right);
+        labelSliderSwitchS.attachToComponent(&sliderSwitch, false);
+        addAndMakeVisible(labelSliderSwitchS);
+
+    setSize (400, 300);
 }
 
 Mid_Side_ControlAudioProcessorEditor::~Mid_Side_ControlAudioProcessorEditor()
@@ -67,6 +92,7 @@ Mid_Side_ControlAudioProcessorEditor::~Mid_Side_ControlAudioProcessorEditor()
 void Mid_Side_ControlAudioProcessorEditor::paint (juce::Graphics& g)
 {
     g.fillAll(juce::Colours::crimson); //background colour
+   
 }
 
 void Mid_Side_ControlAudioProcessorEditor::resized()
@@ -75,5 +101,6 @@ void Mid_Side_ControlAudioProcessorEditor::resized()
     sliderMid.setBounds(getWidth() / 4 - 50, getHeight() - 120, 100, 100);
     sliderSide.setBounds(getWidth() / 2 - 50, getHeight() - 120, 100, 100);
     sliderGain.setBounds(getWidth() * 3 / 4 -50, getHeight() - 120, 100, 100);
+    sliderSwitch.setBounds(getWidth() / 2 - 150, 50, 300, 100);
 
 }

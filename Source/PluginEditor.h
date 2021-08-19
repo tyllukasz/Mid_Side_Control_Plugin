@@ -36,6 +36,15 @@ private:
         juce::Slider sliderGain; //slider for GAIN control
         juce::Label labelSliderGain; //label with description
 
+        juce::Slider sliderSwitch; //slider for switching betwen M/S/ALL
+        juce::Label labelSliderSwitchM; //label MID
+        juce::Label labelSliderSwitchS; //label SIDE
+        juce::Label labelSliderSwitchA; //label ALL
+
+
+            
+            
+
     Mid_Side_ControlAudioProcessor& audioProcessor;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Mid_Side_ControlAudioProcessorEditor)
