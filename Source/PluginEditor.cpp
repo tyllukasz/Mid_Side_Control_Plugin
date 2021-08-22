@@ -16,7 +16,7 @@ Mid_Side_ControlAudioProcessorEditor::Mid_Side_ControlAudioProcessorEditor (Mid_
     //====================SLIDERS====================
     //MID slider
         //slider definition
-        sliderMid.setSliderStyle(juce::Slider::SliderStyle::Rotary); //type
+        sliderMid.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag); //type
         sliderMid.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 40, 30); //text box definition
         sliderMid.setRange(0.0f, 1.0f, 0.1f); //adjustment range
         sliderMid.setValue(0.5f); //initial value
@@ -30,7 +30,7 @@ Mid_Side_ControlAudioProcessorEditor::Mid_Side_ControlAudioProcessorEditor (Mid_
 
     //SIDE slider
         //slider definition
-        sliderSide.setSliderStyle(juce::Slider::SliderStyle::Rotary); //type
+        sliderSide.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag); //type
         sliderSide.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 40, 30); //text box definition
         sliderSide.setRange(0.0f, 1.0f, 0.1f); //adjustment range
         sliderSide.setValue(0.5f); //initial value
@@ -45,10 +45,11 @@ Mid_Side_ControlAudioProcessorEditor::Mid_Side_ControlAudioProcessorEditor (Mid_
 
     //GAIN slider
         //slider definition
-        sliderGain.setSliderStyle(juce::Slider::SliderStyle::Rotary); //type
+        sliderGain.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag); //type
         sliderGain.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 40, 30); //text box definition
         sliderGain.setRange(0.0f, 1.0f, 0.1f); //adjustment range
         sliderGain.setValue(0.5f); //initial value
+        sliderGain.addListener(this); //adding to listener
         addAndMakeVisible(sliderGain);
 
         //label
@@ -104,4 +105,12 @@ void Mid_Side_ControlAudioProcessorEditor::resized()
     sliderGain.setBounds(getWidth() * 3 / 4 -50, getHeight() - 120, 100, 100);
     sliderSwitch.setBounds(getWidth() / 2 - 150, 50, 300, 100);
 
+}
+
+void Mid_Side_ControlAudioProcessorEditor::sliderValueChanged(juce::Slider* slider)
+{
+    if (slider == &sliderGain)
+    {
+        audioProcessor.gainParameter = sliderGain.getValue();
+    }
 }

@@ -14,7 +14,8 @@
 //==============================================================================
 /**
 */
-class Mid_Side_ControlAudioProcessorEditor  : public juce::AudioProcessorEditor
+class Mid_Side_ControlAudioProcessorEditor  : public juce::AudioProcessorEditor,
+                                              public juce::Slider::Listener //adding functionality of SLider::Listener class
 {
 public:
     Mid_Side_ControlAudioProcessorEditor (Mid_Side_ControlAudioProcessor&);
@@ -23,6 +24,8 @@ public:
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
+
+    void sliderValueChanged(juce::Slider* slider) override; //new method
 
 private:
 
