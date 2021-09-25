@@ -18,8 +18,9 @@ Mid_Side_ControlAudioProcessorEditor::Mid_Side_ControlAudioProcessorEditor (Mid_
         //slider definition
         sliderMid.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag); //type
         sliderMid.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 40, 30); //text box definition
-        sliderMid.setRange(0.0f, 1.0f, 0.1f); //adjustment range
-        sliderMid.setValue(0.5f); //initial value
+        sliderMid.setRange(0.0f, 2.0f, 0.1f); //adjustment range
+        sliderMid.setValue(1.0f); //initial value
+        sliderMid.addListener(this); //adding to listener
         addAndMakeVisible(sliderMid);
 
         //label
@@ -32,8 +33,9 @@ Mid_Side_ControlAudioProcessorEditor::Mid_Side_ControlAudioProcessorEditor (Mid_
         //slider definition
         sliderSide.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag); //type
         sliderSide.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 40, 30); //text box definition
-        sliderSide.setRange(0.0f, 1.0f, 0.1f); //adjustment range
-        sliderSide.setValue(0.5f); //initial value
+        sliderSide.setRange(0.0f, 2.0f, 0.1f); //adjustment range
+        sliderSide.setValue(1.0f); //initial value
+        sliderSide.addListener(this); //adding to listener
         addAndMakeVisible(sliderSide);
 
         //label
@@ -47,8 +49,8 @@ Mid_Side_ControlAudioProcessorEditor::Mid_Side_ControlAudioProcessorEditor (Mid_
         //slider definition
         sliderGain.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag); //type
         sliderGain.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 40, 30); //text box definition
-        sliderGain.setRange(0.0f, 1.0f, 0.1f); //adjustment range
-        sliderGain.setValue(0.5f); //initial value
+        sliderGain.setRange(0.0f, 2.0f, 0.1f); //adjustment range
+        sliderGain.setValue(1.0f); //initial value
         sliderGain.addListener(this); //adding to listener
         addAndMakeVisible(sliderGain);
 
@@ -64,6 +66,7 @@ Mid_Side_ControlAudioProcessorEditor::Mid_Side_ControlAudioProcessorEditor (Mid_
         sliderSwitch.setTextBoxStyle(juce::Slider::NoTextBox, true, 40, 30); //text box definition
         sliderSwitch.setRange(0.0f, 1.0f, 0.5f); //adjustment range
         sliderSwitch.setValue(0.5f); //initial value
+        sliderSwitch.addListener(this); //adding to listener
         addAndMakeVisible(sliderSwitch);
 
         //label
@@ -107,10 +110,36 @@ void Mid_Side_ControlAudioProcessorEditor::resized()
 
 }
 
-void Mid_Side_ControlAudioProcessorEditor::sliderValueChanged(juce::Slider* slider)
+void Mid_Side_ControlAudioProcessorEditor::sliderValueChanged(juce::Slider* slider) //getting values from sliders
 {
     if (slider == &sliderGain)
     {
         audioProcessor.gainParameter = sliderGain.getValue();
+    }
+    else if (slider == &sliderMid)
+    {
+        audioProcessor.gainMidParameter = sliderMid.getValue();
+    }
+    else if (slider == &sliderSide)
+    {
+        audioProcessor.gainSideParameter = sliderSide.getValue();
+    }
+    else if (slider == &sliderSwitch)
+    {
+        if (sliderSwitch.getValue() == 1)
+        {
+            audioProcessor.gainMidParameter = 0;
+        }
+        else if (sliderSwitch.getValue() == 0)
+        {
+            audioProcessor.gainSideParameter = 0;
+        }
+        else if (sliderSwitch.getValue() == 0.5)
+        {
+            audioProcessor.gainMidParameter = sliderMid.getValue();
+            audioProcessor.gainSideParameter = sliderSide.getValue();
+        }
+       
+
     }
 }

@@ -139,6 +139,19 @@ void Mid_Side_ControlAudioProcessor::processBlock (juce::AudioBuffer<float>& buf
         buffer.clear (i, 0, buffer.getNumSamples());
 
     
+    auto* channelDataL = buffer.getWritePointer(0);
+    auto* channelDataR = buffer.getWritePointer(1);
+
+    for (int sample = 0; sample < buffer.getNumSamples(); sample++)
+    {
+        auto midData = (gainMidParameter * ((channelDataL[sample] + channelDataR[sample])));
+        auto sideData = (gainSideParameter * ((channelDataL[sample] - channelDataR[sample])));
+
+        channelDataL[sample] = gainParameter * (midData + sideData) / 2;
+        channelDataR[sample] = gainParameter * (midData - sideData) / 2;
+    }
+ 
+    /*
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
         auto* channelData = buffer.getWritePointer (channel);
@@ -148,6 +161,7 @@ void Mid_Side_ControlAudioProcessor::processBlock (juce::AudioBuffer<float>& buf
             channelData[sample] = channelData[sample] * gainParameter;
         }
     }
+    */
 }
 
 //==============================================================================

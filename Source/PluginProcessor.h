@@ -53,7 +53,10 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    float gainParameter{ 0.2 };
+    float gainParameter{ 1.0 }; //total gain control
+    float gainMidParameter{ 1.0 }; //MID signal gain control
+    float gainSideParameter{ 1.0 }; //SIDE signal gain control
+
 
 private:
     //==============================================================================
